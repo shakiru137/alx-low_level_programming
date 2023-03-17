@@ -2,11 +2,6 @@
 #include <time.h>
 #include <stdio.h>
 /**
- * This program will assign a random number to the
- *  variable n each time it is executed.
- */
-
-/**
  * main - Entry point
  *
  * Return: Always 0 (Success)
