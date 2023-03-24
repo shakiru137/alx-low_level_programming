@@ -8,7 +8,7 @@
 int main(void)
 {
 	long x, maxf;
-	long number = 6128524751143;
+	long number = 612852475143;
 	double sqaure = sqrt(number);
 
 	for (x = 1 ; x <= sqaure ; x++)
