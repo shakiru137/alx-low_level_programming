@@ -1,5 +1,3 @@
-must return 0
-julien@ubuntu:~/0x06$ cat 103-main.c
 #include "main.h"
 #include <stdio.h>
 
