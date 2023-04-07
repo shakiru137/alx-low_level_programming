@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
- * main - Write a program that prints its name, followed by a new line.
+ * main - program that prints the number of arguments passed into it.
  * @argc: argument count
  * @argv: argument vector
  * Return: 0 on success.
