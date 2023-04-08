@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 int check_num(char *s)
 {
-	int k;
+	unsigned int k;
 
 	k = 0;
 	while (s[k] != '\0')
