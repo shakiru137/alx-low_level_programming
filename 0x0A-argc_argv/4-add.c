@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include <string.h>
+#include <ctype.h>
 /**
  * main - Write a program that adds positive numbers.
  * @argc: argument count
@@ -49,7 +51,7 @@ int check_num(char *s)
 	k = 0;
 	while (s[k] != '\0')
 	{
-		if (s[k] >= '0' && s[k] <= '9')
+		if (isdigit(s[k]))
 		{
 			return (1);
 		}
