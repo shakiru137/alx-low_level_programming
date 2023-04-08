@@ -1,61 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
-#include <string.h>
-#include <ctype.h>
-/**
- * main - Write a program that adds positive numbers.
- * @argc: argument count
- * @argv: argument vector
- * Return: 0 on success.
- */
 
-int main(int argc, char *argv[])
+/**
+ * main - adds positive numbers.
+ * @argc: argument count
+ * @argv: arguments
+ *
+ * Return: 0
+ */
+int main(int argc, char **argv)
 {
-	int i;
-	int total = 0;
-	int num;
+	int i, n, sum = 0;
+	char *flag;
 
 	if (argc < 2)
 	{
 		printf("0\n");
+		return (0);
 	}
-	for (i = 1; i < argc; i++)
+
+	for (i = 1; argv[i]; i++)
 	{
-		if (check_num(argv[i]))
-		{
-			num = atoi(argv[i]);
-			total += num;
-		}
-		else
+		n = strtol(argv[i], &flag, 10);
+		if (*flag)
 		{
 			printf("Error\n");
 			return (1);
 		}
-	}
-	printf("%d\n", total);
-
-	return (0);
-}
-
-/**
- * check_num - Function that ckeck if digit is present in a sstring.
- * @s: pointer
- * Return: 1 if true 0 otherwise
- */
-
-int check_num(char *s)
-{
-	unsigned int k;
-
-	k = 0;
-	while (s[k] != '\0')
-	{
-		if (isdigit(s[k]))
+		else
 		{
-			return (1);
+			sum += n;
 		}
-		k++;
 	}
+	printf("%d\n", sum);
+
 	return (0);
 }
