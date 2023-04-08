@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 {
 	int i;
 	int total = 0;
+	int num;
 
 	if (argc == 0)
 	{
@@ -21,7 +22,8 @@ int main(int argc, char *argv[])
 	{
 		if (check_num(argv[i]))
 		{
-			total += atoi(argv[i]);
+			num = atoi(argv[i]);
+			total += num;
 		}
 		else
 		{
@@ -50,10 +52,6 @@ int check_num(char *s)
 		if (s[k] >= '0' && s[k] <= '9')
 		{
 			return (1);
-		}
-		else
-		{
-			return (0);
 		}
 		k++;
 	}
