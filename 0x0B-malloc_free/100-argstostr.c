@@ -4,7 +4,7 @@
 
 /**
  * _strlen - lenght of string
- * @s: the string
+ * @str: the string
  * Return: length
  */
 size_t _strlen(const char *str)
@@ -42,12 +42,12 @@ char *argstostr(int ac, char **av)
 	}
 
 	newstring = malloc(sizeof(char) * (len + ac + 1));
-	
+
 	if (!newstring)
 	{
 		return (NULL);
 	}
-	
+
 	for (i = 0; i < ac; i++)
 	{
 		for (j = 0; av[i][j]; j++, x++)
@@ -56,8 +56,8 @@ char *argstostr(int ac, char **av)
 		}
 		newstring[x++] = '\n';
 	}
-	
+
 	newstring[x] = '\0';
-	
+
 	return (newstring);
 }
