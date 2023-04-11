@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
-
+#include <stddef.h>
 int _putchar(char c);
 char *create_array(unsigned int size, char c);
 void simple_print_buffer(char *buffer, unsigned int size);
@@ -13,5 +13,6 @@ void print_grid(int **grid, int width, int height);
 char *argstostr(int ac, char **av);
 char **strtow(char *str);
 void print_tab(char **tab);
+size_t _strlen(const char *str);
 
 #endif
