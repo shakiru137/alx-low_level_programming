@@ -6,9 +6,6 @@
  * @s2: second string pointer
  * Return: strings on success.
  */
-
-size_t _strlen(const char *str);
-
 char *str_concat(char *s1, char *s2)
 {
 	int i, j;
@@ -50,6 +47,7 @@ char *str_concat(char *s1, char *s2)
  * Return: The length of @str.
  */
 
+size_t _strlen(const char *str);
 size_t _strlen(const char *str)
 {
 	size_t length = 0;
