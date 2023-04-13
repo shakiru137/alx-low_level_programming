@@ -31,21 +31,21 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		n = len2;
 	}
 
-	new_str = malloc(sizeof(char) * (len1 + n + 1));
+	new_str = malloc(len1 + n + 1);
 	if (new_str == NULL)
 	{
 		return (NULL);
 	}
-	for (i = 0; s1[i] != '\0'; i++)
+	for (i = 0; i < len1; i++)
 	{
 		new_str[i] = s1[i];
 	}
-	for (j = 0; j < n; j++)
+	for (j = 0; j <  n; j++)
 	{
 		new_str[i] = s2[j];
 		i++;
 	}
-	new_str[i + 1] = '\0';
+	new_str[i] = '\0';
 
 	return (new_str);
 }
