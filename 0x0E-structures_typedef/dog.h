@@ -1,7 +1,15 @@
 #ifndef DOG_H
 #define DOG_H
+/**
+ * struct dog - declaration.
+ * @name: the dog name.
+ * @age: the dog age.
+ * @owner: the dog owner.
+ * Return: Nothing.
+ */
 
-struct dog{
+struct dog
+{
 	char *name;
 	float age;
 	char *owner;
