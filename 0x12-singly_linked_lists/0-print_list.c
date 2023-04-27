@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include "lists.h"
+#include<stdio.h>
+#include"lists.h"
 /**
- * print_list - Prints all the elements of a list_t list.
- * @h: A pointer to the head node of the list.
+ * print_list - Function that printd all the elements of a list.
+ * @h: Pointer to the address of the struct list;
  *
- * Return: The number of nodes in the list.
+ * Return: Number of element in each list accessed.
  */
 size_t print_list(const list_t *h)
 {
@@ -12,10 +12,16 @@ size_t print_list(const list_t *h)
 
 	while (h != NULL)
 	{
-		printf("[%d] %s\n", h->len, h->str != NULL ? h->str : "(nil)");
+		if (h->str != NULL)
+		{
+			printf("[%d] %s\n", h->len, h->str);
+			count++;
+		}
+		else
+		{
+			printf("[%d] (nil)\n", h->len);
+		}
 		h = h->next;
-		count++;
 	}
-
 	return (count);
 }
