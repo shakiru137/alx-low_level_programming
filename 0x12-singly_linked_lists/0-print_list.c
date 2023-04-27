@@ -1,8 +1,7 @@
-#include<stdio.h>
 #include"lists.h"
 /**
  * print_list - Function that printd all the elements of a list.
- * @h: Pointer to the address of the struct list;
+ * @h: Pointer to the address of the struct list
  *
  * Return: Number of element in each list accessed.
  */
