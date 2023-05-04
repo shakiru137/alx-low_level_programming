@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * void print_binary - unction that prints d binary representation of a number.
+ * print_binary - unction that prints d binary representation of a number.
  * @n: Integer to be converted to binary.
  *
  * Return: Nothing.
