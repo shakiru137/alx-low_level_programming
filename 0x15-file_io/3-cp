@@ -1,0 +1,84 @@
+
+#include "main.h"
+#define BUFFER_SIZE 1024
+/**
+ * Main - Entry point.
+ * Decription: program that copies the content of a file to another file.
+ * @argc: argument(s) count.
+ * @argv: argument(s) vector.
+ *
+ * Return: 0 Always.
+ */
+int main(int argc, char *argv[])
+{
+	int fdescriptor_W;
+	int fdescriptor_R;
+	int readings, cl_fdR, cl_fdW;
+	char buffer[BUFFER_SIZE];
+
+	/* check if the program has received two arguments */
+	if (argc != 3)
+	{
+		/* if true, print error mes & exit code 97 */
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
+	}
+	/* open source file in read mode */
+	fdescriptor_R = open(argv[1], O_RDONLY);
+	/* if opening fails, print error message & exit with error code 98 */
+	if (fdescriptor_R < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	/**
+	 * open the destination file in write mode, create if
+	 * does not exist and truncate it to length 0 if it
+	 * does exit with content in it
+	 */
+	fdescriptor_W = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	/* if opening the dest fails, print error message, */
+	/* close the source file & exit with error code 99 */
+	if (fdescriptor_W < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		close(fdescriptor_R);
+		exit(99);
+	}
+	/* loop throngh all data in source file */
+	while ((readings = read(fdescriptor_R, buffer, BUFFER_SIZE)) > 0)
+	{
+		/* write all data to destination file */
+		if (write(fdescriptor_W, buffer, readings) != readings)
+		{
+			/* if writing to destination file fails, */
+			/* close both files */
+			/* print error messages & exit with E.C. (99) */
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			close(fdescriptor_R);
+			close(fdescriptor_W);
+			exit(99);
+		}
+	}
+	/* if reading from the source fails, print error */
+	/* message & exit with error code 98 */
+	if (readings < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	/* close both source & dest files */
+	cl_fdR = close(fdescriptor_R);
+	cl_fdW = close(fdescriptor_W);
+	/* if closing one or both of the files fails, print*/
+	/* print error mes with exit code 100 */
+	if (cl_fdR < 0 || cl_fdW < 0)
+	{
+		if (cl_fdR < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fdescriptor_R);
+		if (cl_fdW < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fdescriptor_W);
+		exit(100);
+	}
+	return (0);
+}
