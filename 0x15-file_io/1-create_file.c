@@ -13,10 +13,13 @@ int create_file(const char *filename, char *text_content)
 
 	if (filename == NULL)
 		return (-1);
-	/* O_CREAT indicate the file should be created if not exist
+	/**
+	 * O_CREAT indicate the file should be created if not exist
 	 * O_RDWR indicate that the file should be open for both read and write mode
-	 * O_TRUNC indicate if the file already exit for writing, it content should be deleted or truncate back to 0
-	 * 600 indicate permmission rw- --- --- for the created file */
+	 * O_TRUNC indicate if the file already exit for writing, it content should
+	 * be deleted or truncate back to 0
+	 * 600 indicate permmission rw- --- --- for the created file
+	 */
 	fdescriptor = open(filename, O_CREAT | O_RDWR | O_TRUNC, 600);
 	if (fdescriptor < 0)
 		return (-1);
