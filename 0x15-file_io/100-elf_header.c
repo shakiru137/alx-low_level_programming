@@ -5,6 +5,17 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <elf.h>
+void entry_display(unsigned long int e_entry, unsigned char *e_class);
+void displayABI(unsigned char *e_class);
+void display_OS_ABI(unsigned char *e_class);
+void displayType(unsigned int eType, unsigned char *e_class);
+void displayData(unsigned char *e_class);
+void displayClass(unsigned char *e_class);
+void print_magic_num(unsigned char *e_class);
+void displayVersion(unsigned char *e_class);
+void checkELF(unsigned char *e_class);
+void closeELF(int ELF_fd);
+
 /**
  * entry_display - Funtion that display the entry point of ELF header.
  * @e_entry: variable of ELF addresss for the entry point.
