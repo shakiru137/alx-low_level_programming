@@ -5,59 +5,59 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <elf.h>
-void entry_display(unsigned long int e_entry, unsigned char *e_class);
-void displayABI(unsigned char *e_class);
-void display_OS_ABI(unsigned char *e_class);
-void displayType(unsigned int eType, unsigned char *e_class);
-void displayData(unsigned char *e_class);
-void displayClass(unsigned char *e_class);
-void print_magic_num(unsigned char *e_class);
-void displayVersion(unsigned char *e_class);
-void checkELF(unsigned char *e_class);
+void entry_display(unsigned long int e_entry, unsigned char *e_ident);
+void displayABI(unsigned char *e_ident);
+void display_OS_ABI(unsigned char *e_ident);
+void displayType(unsigned int eType, unsigned char *e_ident);
+void displayData(unsigned char *e_ident);
+void displayClass(unsigned char *e_ident);
+void print_magic_num(unsigned char *e_ident);
+void displayVersion(unsigned char *e_ident);
+void checkELF(unsigned char *e_ident);
 void closeELF(int ELF_fd);
 
 /**
  * entry_display - Funtion that display the entry point of ELF header.
  * @e_entry: variable of ELF addresss for the entry point.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void entry_display(unsigned long int e_entry, unsigned char *e_class)
+void entry_display(unsigned long int e_entry, unsigned char *e_ident)
 {
 	printf("  Entry point address:                              ");
 
-	if (e_class[EI_DATA] == ELFDATA2MSB)
+	if (e_ident[EI_DATA] == ELFDATA2MSB)
 	{
 		e_entry = ((e_entry << 8) & 0xFF00FF00) |
 			((e_entry >> 8) & 0xFF00FF);
 		e_entry = (e_entry << 16) | (e_entry >> 16);
 	}
 
-	if (e_class[EI_CLASS] == ELFCLASS32)
+	if (e_ident[EI_CLASS] == ELFCLASS32)
 		printf("%#x\n", (unsigned int)e_entry);
 	else
 		printf("%#lx\n", e_entry);
 }
 /**
  * displayABI - Function that prints the ABI version of ELF header.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void displayABI(unsigned char *e_class)
+void displayABI(unsigned char *e_ident)
 {
 	printf("  ABI Version:                              %d\n",
-			e_class[EI_ABIVERSION]);
+			e_ident[EI_ABIVERSION]);
 }
 /**
  * display_OS_ABI - Function that prints info about the OS/ABI in ELF header.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void display_OS_ABI(unsigned char *e_class)
+void display_OS_ABI(unsigned char *e_ident)
 {
 	printf("  OS/ABI:                              ");
 
-	switch (e_class[EI_OSABI])
+	switch (e_ident[EI_OSABI])
 	{
 		case ELFOSABI_NONE:
 			printf("UNIX - System V\n");
@@ -90,18 +90,18 @@ void display_OS_ABI(unsigned char *e_class)
 			printf("Standalone App\n");
 			break;
 		default:
-			printf("<unknown: %x>\n", e_class[EI_OSABI]);
+			printf("<unknown: %x>\n", e_ident[EI_OSABI]);
 	}
 }
 /**
  * displayType - Function that display the type of ELF header.
  * @eType: Variable of the ELF header type.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void displayType(unsigned int eType, unsigned char *e_class)
+void displayType(unsigned int eType, unsigned char *e_ident)
 {
-	if (e_class[EI_DATA] == ELFDATA2MSB)
+	if (e_ident[EI_DATA] == ELFDATA2MSB)
 		eType >>= 8;
 
 
@@ -121,34 +121,34 @@ void displayType(unsigned int eType, unsigned char *e_class)
 }
 /**
  * displayData - Function that print the ELF header data.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void displayData(unsigned char *e_class)
+void displayData(unsigned char *e_ident)
 {
 	printf("  Data:                              ");
 
 
-	if (e_class[EI_DATA] == ELFDATANONE)
+	if (e_ident[EI_DATA] == ELFDATANONE)
 		printf("none\n");
-	else if (e_class[EI_DATA] == ELFDATA2LSB)
+	else if (e_ident[EI_DATA] == ELFDATA2LSB)
 		printf("2's complement, little endian\n");
-	else if (e_class[EI_DATA] == ELFDATA2MSB)
+	else if (e_ident[EI_DATA] == ELFDATA2MSB)
 		printf("2's complement, big endian\n");
 	else
-		printf("<unknown: %x>\n", e_class[EI_CLASS]);
+		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 
 }
 /**
  * displayClass - Function that diplay the ELF header class.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void displayClass(unsigned char *e_class)
+void displayClass(unsigned char *e_ident)
 {
 	printf("  Class:                              ");
 
-	switch (e_class[EI_CLASS])
+	switch (e_ident[EI_CLASS])
 	{
 		case ELFCLASSNONE:
 			printf("none\n");
@@ -160,22 +160,22 @@ void displayClass(unsigned char *e_class)
 			printf("ELF64\n");
 			break;
 		default:
-			printf("<unknown: %x>\n", e_class[EI_CLASS]);
+			printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 	}
 }
 /**
  * print_magic_num - Function that prints the magic number of ther ELF header.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void print_magic_num(unsigned char *e_class)
+void print_magic_num(unsigned char *e_ident)
 {
 	int i = 0;
 
 	printf("  Magic:                              ");
 	while (i < EI_NIDENT)
 	{
-		printf("%02x", e_class[i]);
+		printf("%02x", e_ident[i]);
 		if (i == EI_NIDENT - 1)
 			printf("\n");
 		else
@@ -185,34 +185,34 @@ void print_magic_num(unsigned char *e_class)
 }
 /**
  * displayVersion - Function that prints the version of the ELF header.
- * @e_class: Pointer to array of ELF version of the ABI.
+ * @e_ident: Pointer to array of ELF version of the ABI.
  * Return: Nothing.
  */
-void displayVersion(unsigned char *e_class)
+void displayVersion(unsigned char *e_ident)
 {
 	printf("  Version:                           %d",
-			e_class[EI_VERSION]);
+			e_ident[EI_VERSION]);
 
-	if (e_class[EI_VERSION] == EV_CURRENT)
+	if (e_ident[EI_VERSION] == EV_CURRENT)
 		printf(" (current)\n");
 	else
 		printf("\n");
 }
 /**
  * checkELF - Function that check a file if it is an ELF file.
- * @e_class: Pointer to array of ELF of the API.
+ * @e_ident: Pointer to array of ELF of the API.
  * Return: Nothing.
  */
-void checkELF(unsigned char *e_class)
+void checkELF(unsigned char *e_ident)
 {
 	int i;
 
 	for (i = 0; i < 4; i++)
 	{
-		if (e_class[i] != 127 &&
-				e_class[i] != 'E' &&
-				e_class[i] != 'L' &&
-				e_class[i] != 'F')
+		if (e_ident[i] != 127 &&
+				e_ident[i] != 'E' &&
+				e_ident[i] != 'L' &&
+				e_ident[i] != 'F')
 		{
 			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
 			exit(98);
