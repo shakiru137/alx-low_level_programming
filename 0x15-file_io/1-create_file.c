@@ -1,17 +1,19 @@
 #include "main.h"
 
 /**
- * create_file - Entry point
- * Description: Create a file.
- * @filename: Name of the file to be read
+ * create_file - Entry point.
+ * Description: create a file.
+ * @filename: Name of the file to be read.
  * @text_content: A NULL terminated string to write to the file
  *
- * Return: 1 on sucess, -1 on failure
+ * Return: 1 on sucess, -1 on failure.
  */
 
 int create_file(const char *filename, char *text_content)
 {
-	int fd, my_write, i = 0;
+	int fd;
+	int my_write;
+	int i = 0;
 
 	/* Check if filename is NULL and return -1 */
 	if (!filename)

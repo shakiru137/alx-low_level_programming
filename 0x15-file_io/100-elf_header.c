@@ -1,7 +1,7 @@
 /*
  * File: 100-elf_header.c
  *
- * Auth: Promise Nwhator
+ * Auth: Yusuf Shakiru Oluwasegun.
  */
 
 #include <elf.h>
@@ -316,5 +316,6 @@ int main(int __attribute__((__unused__)) argc, char *argv[])
 
 	free(header);
 	close_elf(o);
+
 	return (0);
 }

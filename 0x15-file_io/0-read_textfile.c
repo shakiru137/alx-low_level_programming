@@ -2,11 +2,11 @@
 
 /**
  * read_textfile - Entry point
- * Description: Reads a text file and prints it to the POSIX standard output
- * @filename: Name of the file to be read
- * @letters: The number of letters it should read and print
+ * Description: Reads a text file and prints it to the POSIX standard output (console).
+ * @filename: Name of the file to be read.
+ * @letters: The number of letters it should read and print.
  *
- * Return: The actual number of letters it could read and print
+ * Return: The actual number of letters it could read and print from the file.
  *		if the file can not be opened or read, return 0
  *		if filename is NULL return 0
  *		if write fails or does not write the expected amount of bytes, return 0
