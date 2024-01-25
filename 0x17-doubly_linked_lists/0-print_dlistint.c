@@ -1,6 +1,6 @@
 #include "lists.h"
 /*
- * size_t print_dlistint - Function to print all the linked list.
+ * print_dlistint - Function to print all the linked list.
  * @h: pointer to the head node.
  *
  * Return: number of list in a link list.
