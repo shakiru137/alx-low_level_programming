@@ -1,19 +1,24 @@
 #include "lists.h"
-/*
- * print_dlistint - Function to print all the linked list.
- * @h: pointer to the head node.
+
+/**
+ * print_dlistint - Prints all the elements of a dlistint_t list.
+ * @h: Pointer to head of the list
  *
- * Return: number of list in a link list.
+ * Return: The number of nodes
  */
+
 size_t print_dlistint(const dlistint_t *h)
 {
-	int num = 0;
+	int count = 0;
 
 	while (h)
 	{
+		/* Print the value of the current node */
 		printf("%d\n", h->n);
+		/* Move to the next node */
 		h = h->next;
-		num++;
+		count++;
 	}
-	return (num);
+	/* Return the total number of nodes */
+	return (count);
 }
