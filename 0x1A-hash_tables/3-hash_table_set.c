@@ -31,12 +31,12 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	}
 
 	new_node->value = strdup(value);
-	if (new_node->value == NULL)
+	/*if (new_node->value == NULL)
 	{
 		free(new_node);
 		free(new_node->key);
 		return (0);
-	}
+	}*/
 
 	/* Insert new node into the hash table */
 	new_node->next = ht->array[index];
