@@ -30,7 +30,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 			/* update the value and return */
 			free(temp->value);
 
-			temp->value = strdup(value);
+			temp->value = strdup(value);;
 			if (temp->value == NULL)
 				return (0); /* Mem alloc fails*/
 			return (1);
@@ -58,6 +58,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	}
 
 	/* Insert new node into the hash table */
+	new_node->value = strdup(value);
 	new_node->next = ht->array[index];
 	ht->array[index] = new_node;
 
