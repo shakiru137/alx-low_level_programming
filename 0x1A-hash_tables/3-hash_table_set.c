@@ -12,12 +12,31 @@
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int index;
-	hash_node_t *new_node;
+	hash_node_t *new_node, *temp;
 
 	if (ht == NULL || key == NULL || *key == '\0')
 		return (0); /* Invalid input */
 
-	index = hash_djb2((unsigned char *)key) % ht->size;
+	/* Get the index using hash function */
+	index = key_index((unsigned char *)key, ht->size);
+
+	/* check if the key already exit and update the value */
+	temp = ht->array[index];
+
+	while (temp != NULL)
+	{
+		if (strcmp(temp->key, key) == 0)
+		{
+			/* update the value and return */
+			free(temp->value);
+
+			temp->value = strdup(value);
+			if (temp->value == NULL)
+				return (0); /* Mem alloc fails*/
+			return (1);
+		}
+		temp = temp->next;
+	}
 
 	new_node = malloc(sizeof(hash_node_t));
 	if (new_node == NULL)
